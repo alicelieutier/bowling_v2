@@ -1,9 +1,15 @@
 class Scorecard {
-  addRoll() {
+  #rolls
 
+  constructor() {
+    this.#rolls = 0
+  }
+
+  addRoll(nbOfPins) {
+    this.#rolls += nbOfPins
   }
 
   totalScore() {
-    return 6
+    return this.#rolls
   }
 }
