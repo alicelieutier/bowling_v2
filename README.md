@@ -18,5 +18,3 @@ Frame
 .addRoll | returns true if the roll is consumed
 .score
 .displayString
-
-FinalFrame extends Frame, same interface just different logic.
