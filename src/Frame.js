@@ -1,29 +1,81 @@
+const sum = (array) => {
+  return array.reduce((a,b) => a + b, 0)
+}
+
 class Frame {
   #rolls;
+  #bonuses;
 
   constructor() {
     this.#rolls = []
+    this.#bonuses = []
+  }
+
+  /* returns the status of a frame
+  * OPEN - still needs some rolls
+  * BONUS_NEEDED - doesn't need more rolls
+  *    but is expecting some bonus rolls
+  * DONE - Has all rolls and bonuses needed.
+  *   Score for DONE frames is the final score.
+  */
+  status() {
+    if (!this.#isFinishedRolling()) {
+      return 'OPEN'
+    }
+    if (this.#needsBonus()) {
+      return 'BONUS_NEEDED'
+    }
+    return 'DONE'
   }
 
   addRoll(nbOfPins) {
-    if (!this.#isFinishedRolling()) {
-      this.#rolls.push(nbOfPins)
-      return true
+    switch (this.status()) {
+      case 'OPEN':
+        this.#rolls.push(nbOfPins)
+        break;
+      case 'BONUS_NEEDED':
+        this.#bonuses.push(nbOfPins)
+        break;
     }
-    if (this.#needsBonus()) {
-      this.#rolls.push(nbOfPins)
+  }
+
+  pinsLeft() {
+    switch (this.status()) {
+      case 'OPEN':
+        return this.#rolls[0] ? 10 - this.#rolls[0] : 10
+      case 'BONUS_NEEDED':
+        return this.#bonuses[0] ? 10 - this.#bonuses[0] : 10
+      case 'DONE':
+        return undefined
     }
-    return false
   }
 
   score() {
-    return this.#rolls.reduce((a,b) => a + b, 0)
+    return sum(this.#rolls) + sum(this.#bonuses)
+  }
+
+  displayData(previousScore = 0) {
+    return {
+      rolls: this.#rollsForDisplay(),
+      bonuses: this.#bonuses,
+      cumulativeScore: this.score() + previousScore,
+    }
+  }
+
+  #rollsForDisplay() {
+    if (this.#isStrike()) {
+      return ['X']
+    }
+    if (this.#isSpare()) {
+      return [this.#rolls[0].toString(), '/']
+    }
+    return this.#rolls.map((roll) => roll.toString())
   }
 
   #isFinishedRolling() {
     return (
-      this.#rolls.length >= 2
-      || this.#isStrike() && this.#rolls.length >= 1
+      this.#rolls.length === 2
+      || this.#isStrike() && this.#rolls.length === 1
     )
   }
 
@@ -37,8 +89,8 @@ class Frame {
 
   #needsBonus() {
     return (
-      this.#isSpare() && this.#rolls.length < 3
-      || this.#isStrike() && this.#rolls.length < 3
+      this.#isSpare() && this.#bonuses.length < 1
+      || this.#isStrike() && this.#bonuses.length < 2
     )
   }
 }
