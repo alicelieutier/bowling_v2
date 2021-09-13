@@ -42,9 +42,11 @@ class Frame {
   pinsLeft() {
     switch (this.status()) {
       case 'OPEN':
-        return this.#rolls[0] ? 10 - this.#rolls[0] : 10
+        return 10 - (this.#rolls[0] || 0)
       case 'BONUS_NEEDED':
-        return this.#bonuses[0] ? 10 - this.#bonuses[0] : 10
+        // return 10 if first bonus OR
+        // if second bonus and first bonus was 0 or 10
+        return 10 - (this.#bonuses[0] || 0) % 10
       case 'DONE':
         return undefined
     }

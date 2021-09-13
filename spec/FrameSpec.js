@@ -1,10 +1,5 @@
 describe('Frame', function(){
 
-  // #rolls
-  // .addRoll | returns true if the roll is consumed
-  // .score
-  // .displayString
-  
   describe('.score - calculates the score of a frame', function(){
     it('1,2 returns 3', function() {
       let frame = new Frame()
@@ -169,6 +164,20 @@ describe('Frame', function(){
       frame.addRoll(10)
       frame.addRoll(3)
       expect(frame.pinsLeft()).toBe(7)
+    })
+
+    it("returns 10 when the first bonus roll was 0 and needs a second bonus", function() {
+      let frame = new Frame()
+      frame.addRoll(10)
+      frame.addRoll(0)
+      expect(frame.pinsLeft()).toBe(10)
+    })
+
+    it("returns 10 when the first bonus roll was a strike and needs second bonus", function() {
+      let frame = new Frame()
+      frame.addRoll(10)
+      frame.addRoll(10)
+      expect(frame.pinsLeft()).toBe(10)
     }) 
   })
 })
