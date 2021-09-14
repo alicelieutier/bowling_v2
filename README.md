@@ -13,19 +13,19 @@ The game ends when no more frame are open or need bonuses.
 ## Classes public interface:
 
 #### Scorecard
-`.addRoll` - takes the number of pins rolled, distributes it to frames.
-`.totalScore`
+- `.addRoll` - takes the number of pins rolled, distributes it to frames.
+- `.totalScore`
 
-For the UI:
-`.displayData`
-`.isGameFinished`
-`.maxPinsForNextRoll`
+   For the UI:
+- `.displayData`
+- `.isGameFinished`
+- `.maxPinsForNextRoll`
 
 #### Frame
-`.status` - OPEN, BONUS_NEEDED or DONE
-`.addRoll` - takes the number of pins rolled
-`.score`
+- `.status` - OPEN, BONUS_NEEDED or DONE
+- `.addRoll` - takes the number of pins rolled
+- `.score`
 
-For the UI:
-`.pinsLeft`
-`.displayData`
+   For the UI:
+- `.pinsLeft`
+- `.displayData`
