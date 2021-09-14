@@ -1,5 +1,7 @@
 # New Bowling 🎳
 
+Try me at [bawdy-snails.surge.sh](https://bawdy-snails.surge.sh/)
+
 New code design for a bowling challenge with an interface
 
 The idea is that a scorecard starts with 10 empty frames
