@@ -3,18 +3,27 @@
 New code design for a bowling challenge with an interface
 
 The idea is that a scorecard starts with 10 empty frames
-The last one is a special frame
 
-Each roll is sent to all the frames in order until consumed.
+Each roll is sent to the first open frame, and all frames that still need bonuses. No special case for the tenth frame.
 
-Scorecard
-#frames
-.addRoll
-.totalScore
-.displayString
+The game ends when no more frame are open or need bonuses.
 
-Frame
-#rolls
-.addRoll | returns true if the roll is consumed
-.score
-.displayString
+## Classes public interface:
+
+#### Scorecard
+`.addRoll` - takes the number of pins rolled, distributes it to frames.
+`.totalScore`
+
+For the UI:
+`.displayData`
+`.isGameFinished`
+`.maxPinsForNextRoll`
+
+#### Frame
+`.status` - OPEN, BONUS_NEEDED or DONE
+`.addRoll` - takes the number of pins rolled
+`.score`
+
+For the UI:
+`.pinsLeft`
+`.displayData`
