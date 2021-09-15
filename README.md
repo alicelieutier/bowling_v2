@@ -29,3 +29,7 @@ The game ends when no more frame are open or need bonuses.
    For the UI:
 - `.pinsLeft`
 - `.displayData`
+
+## Testing
+
+My tests are not isolated currently. That is - scorecard tests act more like feature tests. This is because I wrote them first, in order to support the whole system. If I come back to this is will be to add some isolated tests to scorecard.
